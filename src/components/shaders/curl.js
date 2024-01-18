@@ -15,6 +15,6 @@ void main () {
   float T = texture2D(uVelocity, vT).x;
   float B = texture2D(uVelocity, vB).x;
   float vorticity = R - L - T + B;
-  gl_FragColor = vec4(vorticity, 0.0, 0.0, 1.0);
+  gl_FragColor = vec4(vorticity, 0.0, 1.0, 1.0);
 }
 `

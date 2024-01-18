@@ -4,13 +4,13 @@ import getGLContext from './get-gl-context'
 import shaders from './shaders'
 
 export const defaultConfig = {
-  textureDownsample: 1,
-  densityDissipation: 0.98,
-  velocityDissipation: 0.99,
-  pressureDissipation: 0.8,
+  textureDownsample: 0,
+  densityDissipation: 0.99,
+  velocityDissipation: 1.94,
+  pressureDissipation: 0.40,
   pressureIterations: 25,
   curl: 30,
-  splatRadius: 0.005
+  splatRadius: 0.0001
 }
 
 class Pointer {
@@ -22,7 +22,7 @@ class Pointer {
     this.dy = 0
     this.down = false
     this.moved = false
-    this.color = [30, 0, 300]
+    this.color = [0.2, 0.1, 0.001,0.1]
   }
 }
 
@@ -38,7 +38,7 @@ export default class FluidAnimation {
 
     this._canvas = canvas
     this._config = config
-
+    this._update_color = true
     this._pointers = [ new Pointer() ]
     this._splatStack = []
 
@@ -102,6 +102,18 @@ export default class FluidAnimation {
     }
   }
 
+  color_update=() => {
+      
+    this._pointers[0].color = [
+      Math.random() + 0.2,
+      Math.random() + 0.2,
+      Math.random() + 0.2,
+      Math.random() + 0.2
+    ]
+    this._update_color = true
+  }
+  
+
   onMouseMove = (e) => {
     this._pointers[0].down = true
     this._pointers[0].moved = this._pointers[0].down
@@ -109,11 +121,17 @@ export default class FluidAnimation {
     this._pointers[0].dy = (e.offsetY - this._pointers[0].y) * 10.0
     this._pointers[0].x = e.offsetX
     this._pointers[0].y = e.offsetY
+    if(this._update_color){
+      setInterval(this.color_update, 2000);
+      this._update_color = false
+    }
+    
   }
 
   onMouseDown = (e) => {
     this._pointers[0].down = true
     this._pointers[0].color = [
+      Math.random() + 0.2,
       Math.random() + 0.2,
       Math.random() + 0.2,
       Math.random() + 0.2
@@ -127,7 +145,8 @@ export default class FluidAnimation {
   onTouchStart = (e) => {
     for (let i = 0; i < e.touches.length; ++i) {
       this._pointers[i].down = true
-      this._pointers[i].color = [
+      this._pointers[0].color = [
+        Math.random() + 0.2,
         Math.random() + 0.2,
         Math.random() + 0.2,
         Math.random() + 0.2

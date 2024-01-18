@@ -14,7 +14,7 @@ vec2 sampleVelocity (in vec2 uv) {
   if (uv.x < 0.0) { uv.x = 0.0; multiplier.x = -1.0; };
   if (uv.x > 1.0) { uv.x = 1.0; multiplier.x = -1.0; };
   if (uv.y < 0.0) { uv.y = 0.0; multiplier.y = -1.0; };
-  if (uv.y > 1.0) { uv.y = 1.0; multiplier.y = -1.0; };
+  if (uv.y > 1.0) { uv.y = 1.1; multiplier.y = -1.0; };
   return multiplier * texture2D(uVelocity, uv).xy;
 }
 

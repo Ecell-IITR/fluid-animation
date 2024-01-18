@@ -1,21 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component,useEffect } from 'react'
 
 import '../node_modules/react-dat-gui/build/react-dat-gui.css'
-import DatGui, { DatNumber, DatSelect, DatButton } from 'react-dat-gui'
 
 import FluidAnimation from './components/react-fluid-animation'
-
+// import Webgl from './trial/modules/WebGL'
 
 // import image from './lena.png'
 
 const defaultConfig = {
   textureDownsample: 1,
-  densityDissipation: 0.98,
-  velocityDissipation: 0.99,
-  pressureDissipation: 0.8,
+  densityDissipation: 0.90,
+  velocityDissipation: 0.94,
+  pressureDissipation: 0.36,
   pressureIterations: 25,
   curl: 30,
-  splatRadius: 0.005
+  splatRadius: 0.01
 }
 
 export default class App extends Component {
@@ -23,6 +22,9 @@ export default class App extends Component {
     config: {
       ...defaultConfig
     }
+  }
+  componentDidMount(){
+
   }
 
   render () {
@@ -65,72 +67,12 @@ export default class App extends Component {
               textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)'
             }}
           >
-            React Fluid Animation
+            Esummit 2024
           </h1>
         </div>
 
 
-        <DatGui data={config} onUpdate={this._onUpdate}>
-          <DatSelect
-            path='textureDownsample'
-            label='Texture Downsample'
-            options={[ 0, 1, 2 ]}
-          />
-
-          <DatNumber
-            path='densityDissipation'
-            label='Density Diffusion'
-            min={0.9}
-            max={1.0}
-          />
-
-          <DatNumber
-            path='velocityDissipation'
-            label='Velocity Diffusion'
-            min={0.9}
-            max={1.0}
-          />
-
-          <DatNumber
-            path='pressureDissipation'
-            label='Pressure Diffusion'
-            min={0.0}
-            max={1.0}
-          />
-
-          <DatNumber
-            path='pressureIterations'
-            label='Pressure Iterations'
-            min={1}
-            max={60}
-            step={1}
-          />
-
-          <DatNumber
-            path='curl'
-            label='Curl'
-            min={0}
-            max={50}
-            step={1}
-          />
-
-          <DatNumber
-            path='splatRadius'
-            label='Splat Radius'
-            min={0.0001}
-            max={0.02}
-          />
-
-          <DatButton
-            label='Random Splats'
-            onClick={this._onClickRandomSplats}
-          />
-
-          <DatButton
-            label='Reset Config'
-            onClick={this._onReset}
-          />
-        </DatGui>
+        
       </div>
     )
   }
